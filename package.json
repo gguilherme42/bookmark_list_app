@@ -1,0 +1,15 @@
+{
+  "name": "bookmark_list_app",
+  "version": "1.0.0",
+  "main": "./app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guilherme Rosa",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "electron": "^33.2.1"
+  }
+}
