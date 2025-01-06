@@ -4,6 +4,12 @@ let mainWindow = null;
 
 app.on("ready", () => {
         console.log("Hello from Electron");
-        mainWindow = new BrowserWindow();
-        mainWindow.webContents.loadFile("index.html");
+        mainWindow = new BrowserWindow({
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        mainWindow.webContents.loadFile("app/index.html");
+        
     });
