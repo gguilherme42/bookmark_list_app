@@ -17,6 +17,10 @@ const findTitle = (nodes) => {
 };
 
 
+const storeLink = (title, url) => {
+    localStorage.setItem(url, JSON.stringify({title: title, url: url}))
+};
+
 
 
 newLinkUrl.addEventListener("keyup", () => {
@@ -29,6 +33,11 @@ newLinkForm.addEventListener("submit", (event) => {
 
     const url = newLinkUrl.value;
 
-    fetch(url).then(response => response.text()).then(parseResponse).then(findTitle);
+    fetch(url)
+        .then(response => response.text())
+        .then(parseResponse)
+        .then(findTitle)
+        .then(title => storeLink(title, url))
+        .then(clearForm);
 
 })
