@@ -1,3 +1,9 @@
-const {app} = require("electron");
+const {app, BrowserWindow} = require("electron");
 
-app.on("ready", () => console.log("Hello from Electron"));
+let mainWindow = null;
+
+app.on("ready", () => {
+        console.log("Hello from Electron");
+        mainWindow = new BrowserWindow();
+        mainWindow.webContents.loadFile("index.html");
+    });
