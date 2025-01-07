@@ -22,6 +22,30 @@ const storeLink = (title, url) => {
 };
 
 
+const getLinks = () => {
+    return Object.keys(localStorage).map(key => JSON.parse(localStorage.getItem(key)));
+}
+
+const renderLinks = () => {
+    const linkElements = getLinks().map(convertToElement).join('');
+    linksSection.innerHTML = linkElements;
+}
+
+
+
+const convertToElement = (link) => {
+    return `
+    <div class="link">
+        <h3>${link.title}</h3>
+        <p>
+            <a href="${link.url}">${link.url}</a>
+        </p>
+
+    </div>
+    `;
+}
+
+
 
 newLinkUrl.addEventListener("keyup", () => {
     newLinkSubmit.disabled = !newLinkUrl.validity.valid;
@@ -40,4 +64,12 @@ newLinkForm.addEventListener("submit", (event) => {
         .then(title => storeLink(title, url))
         .then(clearForm);
 
-})
+});
+
+clearStorageButton.addEventListener("click", () => {
+    localStorage.clear();
+    linksSection.innerHTML = "";
+});
+
+
+renderLinks();
