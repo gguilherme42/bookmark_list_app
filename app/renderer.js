@@ -62,7 +62,9 @@ newLinkForm.addEventListener("submit", (event) => {
         .then(parseResponse)
         .then(findTitle)
         .then(title => storeLink(title, url))
-        .then(clearForm);
+        .then(clearForm).then(renderLinks);
+
+   
 
 });
 
