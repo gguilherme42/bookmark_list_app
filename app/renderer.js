@@ -45,6 +45,15 @@ const convertToElement = (link) => {
     `;
 }
 
+const handleError = (error, url) => {
+    errorMessage.innerHTML = `There was an issue adding "${url}": ${error.message}`.trim();
+    setTimeout(() => errorMessage.innerText = null, 5000);
+}
+
+const validateResponse = (response) => {
+    if (response.ok) return response;
+    throw new Error(`Status code of ${response.status} ${response.statusText}`);
+}
 
 
 newLinkUrl.addEventListener("keyup", () => {
@@ -58,11 +67,14 @@ newLinkForm.addEventListener("submit", (event) => {
     const url = newLinkUrl.value;
 
     fetch(url)
+        .then(validateResponse)
         .then(response => response.text())
         .then(parseResponse)
         .then(findTitle)
         .then(title => storeLink(title, url))
-        .then(clearForm).then(renderLinks);
+        .then(clearForm)
+        .then(renderLinks)
+        .catch(error => handleError(error, url));
 
    
 
