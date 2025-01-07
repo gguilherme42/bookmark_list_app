@@ -6,6 +6,9 @@ const newLinkSubmit= document.querySelector(".new-link-submit");
 const clearStorageButton = document.querySelector(".clear-storage");
 const parser = new DOMParser();
 
+
+const {shell} = require("electron");
+
 const clearForm = () => {newLinkUrl.value = null;};
 
 const parseResponse = (text) => {
@@ -85,5 +88,12 @@ clearStorageButton.addEventListener("click", () => {
     linksSection.innerHTML = "";
 });
 
+
+linksSection.addEventListener("click", (eventt) => {
+    if (eventt.target.href) {
+        eventt.preventDefault();
+        shell.openExternal(eventt.target.href);
+    }
+});
 
 renderLinks();
